@@ -6,8 +6,6 @@ import models.User;
 import org.junit.After;
 import org.junit.Before;
 
-import static generators.UserGenerator.randomUser;
-
 public class BaseTest {
     public UserClient userClient;
     public User user;
