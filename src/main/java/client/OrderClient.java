@@ -8,8 +8,8 @@ import models.Order;
 import static io.restassured.RestAssured.given;
 
 public class OrderClient {
-    String GET_INGREDIENTS_API = "/api/ingredients";
-    String ORDERS_API = "/api/orders";
+    static final String GET_INGREDIENTS_API = "/api/ingredients";
+    static final String ORDERS_API = "/api/orders";
 
     @Step("Получение списка ингредиентов")
     public ValidatableResponse getIngredients() {

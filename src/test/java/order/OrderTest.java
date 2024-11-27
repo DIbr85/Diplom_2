@@ -1,39 +1,30 @@
 package order;
 
+import base.BaseTest;
 import client.OrderClient;
 import client.UserClient;
 import generators.OrderGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import models.Order;
 import models.User;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static generators.UserGenerator.*;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 
-public class OrderTest {
+public class OrderTest extends BaseTest {
     private User user;
-    private UserClient userClient;
+    private final UserClient userClient = new UserClient();
     private String accessToken;
     private Order order;
-    private OrderClient orderClient;
-    private OrderGenerator orderGenerator;
+    private final OrderClient orderClient =new OrderClient();
+    private final OrderGenerator orderGenerator = new OrderGenerator();
 
 
-    @Before
-    public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
-        orderClient = new OrderClient();
-        orderGenerator = new OrderGenerator();
-        userClient = new UserClient();
-
-    }
-
+    @Override
     @After
     public void tearDown() {
         if (accessToken != null) {

@@ -1,11 +1,9 @@
 package user;
 
+import base.BaseTest;
 import client.UserClient;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
-import models.User;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,24 +11,12 @@ import static generators.UserGenerator.*;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 
-public class CreateUserTest {
-    private User user;
-    private UserClient userClient;
-
+public class CreateUserTest extends BaseTest {
 
     @Before
-    public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
+    public void createUser() {
         userClient = new UserClient();
         user = randomUser();
-    }
-
-    @After
-    public void tearDown() {
-        String accessToken = userClient.getUserAccessTokenStep(user);
-        if (accessToken != null) {
-            userClient.deleteUserStep(accessToken);
-        }
     }
 
     @Test
@@ -40,8 +26,6 @@ public class CreateUserTest {
         userClient.createUserStep(user).assertThat()
                 .statusCode(SC_OK)
                 .body("success", equalTo(true));
-
-
     }
 
     @Test

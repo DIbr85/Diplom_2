@@ -1,11 +1,10 @@
 package user;
 
+import base.BaseTest;
 import client.UserClient;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import models.User;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,27 +13,15 @@ import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class PatchUserTest {
+public class PatchUserTest extends BaseTest {
 
-    private User user;
-    private UserClient userClient;
 
     @Before
-    public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
+    public void createUser() {
         userClient = new UserClient();
         user = randomUser();
         userClient.createUserStep(user);
     }
-
-    @After
-    public void tearDown() {
-        String accessToken = userClient.getUserAccessTokenStep(user);
-        if (accessToken != null) {
-            userClient.deleteUserStep(accessToken);
-        }
-    }
-
 
     @Test
     @DisplayName("Изменение имени пользователя")
